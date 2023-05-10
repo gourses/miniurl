@@ -44,8 +44,8 @@ func ExampleHash() {
 func BenchmarkHash(b *testing.B) {
 	// benchmark ( go test -bench=. )
 	// -run  komennolla voi rajata mitä testiä ajetaan
-	// go test -bench=. -run='^S' -benchmem
-	//  go test -bench=. -run='^S'
+	// go test -bench=. -run='^$' -benchmem
+	//  go test -bench=. -run='^$'
 	const input = "https://github/heppu/miniurl"
 	for n := 0; n < b.N; n++ {
 		miniurl.Hash(input)
