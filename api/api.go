@@ -23,18 +23,22 @@ func Bind(r *httprouter.Router, h Handler) {
 }
 
 type AddUrlRequest struct {
-	Url  string `json:"url,omitempty"`
+	Url  string `json:"url"`
 }
 type AddUrlResponse struct {
-	Url  string `json:"url,omitempty"`
-	Hash string `json:"hash,omitempty"`
+	Url  string `json:"url"`
+	Hash string `json:"hash"`
+}
+type ErrorResponse struct {
+	Msg string `json:"msg"`
 }
 
 func (a *API) AddUrl(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var v AddUrlRequest
 	err := json.NewDecoder(r.Body).Decode(&v)
 	if err != nil {
-		// TODO error
+		resp := ErrorResponse{Msg: "bad request"}
+		respondJSON(w, http.StatusBadRequest, resp)
 		return
 	}
 
@@ -48,5 +52,16 @@ func (a *API) AddUrl(w http.ResponseWriter, r *http.Request, p httprouter.Params
 	if err != nil {
 		slog.Error(err.Error())
 		return
+	}
+
+	resp := AddUrlResponse{Url: v.Url, Hash: hash}
+	respondJSON(w, http.StatusOK, resp)
+}
+
+func respondJSON(w http.ResponseWriter, code int, resp any) {
+	w.WriteHeader(code)
+	err := json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		slog.Error(err.Error())
 	}
 }
