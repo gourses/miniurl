@@ -1,3 +1,4 @@
+// Package miniurl provides building blocks for url shortener app.
 package miniurl
 
 import (
@@ -5,7 +6,7 @@ import (
 	"encoding/hex"
 )
 
-// Returns Hashed output of long input
+// Hash generates 32 byte long hex encoded string of any size input string
 func Hash(input string) string {
 	hash := md5.Sum([]byte(input))
 
