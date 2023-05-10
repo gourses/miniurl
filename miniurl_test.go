@@ -41,3 +41,12 @@ func ExampleHash() {
 	// output:
 	// 7dd0152e5a839fde93952b98be0152ca
 }
+
+func BenchmarkHash(b *testing.B) {
+	const input = "https://github.com/RichieRock/gourses-miniurl"
+
+	for n := 0; n < b.N; n++ {
+		miniurl.Hash(input)
+	}
+
+}
