@@ -24,6 +24,9 @@ tidy: ${GO} ## Tidy Go modules
 
 unit-test: ${GO} ## Run unit tests
 	@echo TODO
+	# ./... adds all packages from this below
+	# hakemistot luoda os riippumattomasti voi go .tools/mkdir_go
+	#go on sisäänrakennettu dokumentointi
 	mkdir -p ${TARGET_DIR}
 	${GO} test -v -cover -coverprofile=${TARGET_DIR}/cover.out ./...
 
