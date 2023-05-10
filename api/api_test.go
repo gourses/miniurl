@@ -30,10 +30,10 @@ func TestAPI_AddUrl(t *testing.T) {
 		},
 		{
 			name: "bad request",
-			handler: nil,
-			payload: `{"url": "https://github.com/gourses/miniurl/blob/main/LICENSE"}`,
+			handler: &strHandler{str: "testvalue"},
+			payload: `{"url": ""}`,
 			expectedStatusCode: http.StatusBadRequest,
-			expectedBody: `{"msg": "Bad request"}`,
+			expectedBody: `{"msg": "bad request"}`,
 		},
 	}
 	for _, tc:= range tests {

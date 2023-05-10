@@ -36,7 +36,7 @@ type ErrorResponse struct {
 func (a *API) AddUrl(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var v AddUrlRequest
 	err := json.NewDecoder(r.Body).Decode(&v)
-	if err != nil {
+	if err != nil || v.Url == "" {
 		resp := ErrorResponse{Msg: "bad request"}
 		respondJSON(w, http.StatusBadRequest, resp)
 		return
@@ -45,12 +45,6 @@ func (a *API) AddUrl(w http.ResponseWriter, r *http.Request, p httprouter.Params
 	hash, err := a.handler.AddUrl(v.Url)
 	if err != nil {
 		// TODO error
-		return
-	}
-
-	err = json.NewEncoder(w).Encode(AddUrlResponse{Url: v.Url, Hash: hash})
-	if err != nil {
-		slog.Error(err.Error())
 		return
 	}
 
