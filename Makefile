@@ -35,13 +35,13 @@ integration-test: ${GO} ## Run integration tests
 
 benchmark: ${GO} ## Run benchmarks
 # benchmakr os riippumattomasti voi go .tools/benchmark_go
-	${GO} test -bench=. -run='$$' -benchmem
+	${GO} test -bench=. -run='$$' -benchmem ./...
 
 fuzz: ${GO} ## Run fuzzy tests
-	@echo TODO
+	${GO} test fuzz v1 ./...
 
 build: ${GO} ## Build binary
-	@echo TODO
+
 
 image: ## Build image
 	@echo TODO
