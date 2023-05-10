@@ -34,7 +34,8 @@ integration-test: ${GO} ## Run integration tests
 	@echo TODO
 
 benchmark: ${GO} ## Run benchmarks
-	@echo TODO
+# benchmakr os riippumattomasti voi go .tools/benchmark_go
+	${GO} test -bench=. -run='$$' -benchmem
 
 fuzz: ${GO} ## Run fuzzy tests
 	@echo TODO
